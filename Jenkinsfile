@@ -36,30 +36,31 @@ stage('Construire et pousser Docker') {
     steps {
         script {
             // Construire l'image Docker
-            sh 'docker build -t monutilisateur/monapp:${BUILD_NUMBER} .'
+            sh 'docker build -t aichalo/demo-chef:${BUILD_NUMBER} .'
 
             // Pousser l'image vers Docker Hub (ou autre registre Docker)
-            sh 'docker push monutilisateur/monapp:${BUILD_NUMBER}'
+            sh 'docker push aichalo/demo-chef:${BUILD_NUMBER}'
         }
     }
 }
-stage('Déployer sur Nexus') {
-    steps {
-        script {
-            // Déployer l'artefact sur Nexus
-            sh 'mvn deploy:deploy-file -Dfile=target/monapp.jar -DrepositoryId=nexus-repository -Durl=http://localhost:8081/repository/maven-releases/'
+ stage('Deploy to Nexus') {
+            steps {
+                script {
+                    sh """
+                    mvn deploy:deploy-file \
+                    -DgroupId=com.example \
+                    -DartifactId=demo-chef \
+                    -Dversion=1.0.0 \
+                    -Dpackaging=jar \
+                    -Dfile=target/demo-chef-1.0.0.jar \
+                    -DrepositoryId=nexus-repository \
+                    -Durl=http://localhost:8081/repository/maven-releases/
+                    """
+                }
+            }
         }
-    }
-}
-stage('Déployer avec Chef') {
-    steps {
-        script {
-            sh '''
-                ssh user@server "chef-client --local-mode /chemin/vers/recette"
-            '''
-        }
-    }
-}
+    
+
     post {
         success {
             echo 'Le build a réussi !'
