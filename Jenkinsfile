@@ -58,6 +58,9 @@ pipeline {
                 }
             }
         }
+        tools {
+            maven 'Maven 3.9'
+        }
     }
 
     post {
