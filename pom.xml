@@ -13,6 +13,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -21,20 +22,11 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-         <servers>
-    <server>
-        <id>nexus-repository</id>
-        <username>admin</username>
-        <password>04Aichalo20</password>
-    </server>
-</servers>
-         <distributionManagement>
-    <repository>
-        <id>nexus-repository</id>
-        <url>http://localhost:8081/repository/maven-releases/</url>
-    </repository>
-</distributionManagement>
 
-
-
+    <distributionManagement>
+        <repository>
+            <id>nexus-repository</id>
+            <url>http://localhost:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
 </project>
