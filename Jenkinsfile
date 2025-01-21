@@ -1,3 +1,27 @@
+pipeline {
+    stages {
+        stage('Checkout') {
+            steps {
+                // Récupère le code depuis le dépôt Git
+                git 'https://github.com/aissatoulo427/demo-chef.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Construire le projet avec Maven
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Exécuter les tests unitaires
+                sh 'mvn test'
+            }
+        }
+    }
+
 stage('Analyse SonarQube') {
     steps {
         script {
@@ -33,6 +57,15 @@ stage('Déployer avec Chef') {
             sh '''
                 ssh user@server "chef-client --local-mode /chemin/vers/recette"
             '''
+        }
+    }
+}
+    post {
+        success {
+            echo 'Le build a réussi !'
+        }
+        failure {
+            echo 'Le build a échoué.'
         }
     }
 }
