@@ -1,5 +1,10 @@
 pipeline {
     agent any
+
+    tools {
+        maven 'Maven 3.9' // Déclare l'outil Maven ici, en dehors du bloc stages
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -57,9 +62,6 @@ pipeline {
                     """
                 }
             }
-        }
-        tools {
-            maven 'Maven 3.9'
         }
     }
 
