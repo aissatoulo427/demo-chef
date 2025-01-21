@@ -21,6 +21,20 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+         <servers>
+    <server>
+        <id>nexus-repository</id>
+        <username>admin</username>
+        <password>04Aichalo20</password>
+    </server>
+</servers>
+         <distributionManagement>
+    <repository>
+        <id>nexus-repository</id>
+        <url>http://localhost:8081/repository/maven-releases/</url>
+    </repository>
+</distributionManagement>
+
 
 
 </project>
